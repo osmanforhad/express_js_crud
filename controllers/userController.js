@@ -21,3 +21,18 @@ export const createUser = async (req, res) => {
     res.status(500).json({ errorMessage: error.message });
   }
 };
+
+export const getAllUsers = async (req, res) => {
+  try {
+    //retrive all data from db
+    const userData = await User.find();
+    //if there is no user
+    if (!userData || userData.length === 0) {
+      return res.status(404).json({ message: "No User found" });
+    } else {
+      res.status(200).json(userData);
+    }
+  } catch (error) {
+    res.status(500).json({ errorMessage: error.message });
+  }
+};
