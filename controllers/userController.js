@@ -52,3 +52,23 @@ export const getUserById = async (req, res) => {
     res.status(500).json({ errorMessage: error.message });
   }
 };
+
+export const update = async (req, res) => {
+  try {
+    //extract userData based on user request through the param
+    const id = req.params.id;
+    //check the user based on provide id into db the user exists or not
+    const userExist = await User.findById(id);
+    if (!userExist) {
+      return res.status(404).json({ message: "No User found with this id" });
+    } else {
+      //update user through the id
+      const updatedData = await User.findByIdAndUpdate(id, req.body, {
+        new: true,
+      });
+      res.status(200).json(updatedData);
+    }
+  } catch (error) {
+    res.status(500).json({ errorMessage: error.message });
+  }
+};
