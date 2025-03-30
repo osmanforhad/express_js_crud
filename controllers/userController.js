@@ -69,7 +69,7 @@ export const update = async (req, res) => {
       });
       res
         .status(200)
-        .json(`The User ${updatedData.name} is updated successfully`);
+        .json({ message: `User ${updatedData.name} Updated successfully` });
     }
   } catch (error) {
     res.status(500).json({ errorMessage: error.message });
